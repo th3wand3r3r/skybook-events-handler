@@ -1,26 +1,26 @@
 {
-  "name": "jsonstore",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "skybook-events-handler",
+  "version": "2.0.0",
+  "description": "Listens for JSON data over HTTP/S and saves to JSON file",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "npx tsc",
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bytron Aviation Systems",
   "license": "ISC",
   "dependencies": {
-    "config": "^3.1.0",
-    "fastify": "^2.8.0",
-    "lodash": "^4.17.15"
+    "express": "^5.1.0"
   },
   "devDependencies": {
-    "eslint": "^6.4.0",
-    "eslint-config-google": "^0.13.0",
-    "eslint-plugin-jest": "^22.17.0",
-    "jest": "^24.9.0"
-  },
-  "engines": {
-    "node": ">=8.12"
+    "@types/config": "^3.3.5",
+    "@types/express": "^5.0.1",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.14.0",
+    "@types/supertest": "^6.0.3",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.1",
+    "typescript": "^5.8.2"
   }
 }

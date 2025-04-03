@@ -1,0 +1,14 @@
+services:
+  skybook-events-handler:
+    container_name: skybook-events-handler
+    build:
+      dockerfile: app.Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/data
+    develop:
+      watch:
+        - path: ./src
+          action: rebuild

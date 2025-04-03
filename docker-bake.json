@@ -1,0 +1,33 @@
+{
+  "variable": {
+    "DockerTag": {"default": "latest"}
+  },
+  "target": {
+    "_common": {
+      "context": ".",
+      "dockerfile": "app.Dockerfile",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    },
+    "build-local": {
+      "inherits": ["_common"],
+      "target": "image",
+      "tags": ["skybook-event-handler:local"]
+    },
+    "test": {
+      "inherits": ["_common"],
+      "target": "test",
+      "output": ["type=cacheonly"]
+    }
+  },
+  "group": {
+    "validate": {
+      "targets": ["test"]
+    },
+    "default": {
+      "targets": ["build-local"]
+    }
+  }
+}

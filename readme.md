@@ -6,16 +6,11 @@ the contents to a JSON file on disk.
 
 ## Install
 
-All requirements are added via ```npm install```
+All requirements are added via ```npm install && npm run build```
 
 ## Usage
 
-The server can be started with the command ```node server```
-
-## Config
-
-The port number and save directory can be configurable 
-through the config/default.json, just change accordingly.
+The server can be started with the command ```node dist/index.js```
 
 ### Run tests
 
