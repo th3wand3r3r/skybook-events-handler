@@ -2,30 +2,36 @@ import fs from 'fs/promises';
 import path from 'path';
 
 /**
- * Asynchronously saves the provided data object to a JSON file in the specified folder with a timestamped filename.
+ * Asynchronously saves the provided data to a specified folder.
  *
- * The function creates the folder if it does not already exist. The filename is generated using the current
- * date and time in the format `data-DD-MM-YY_HH-mm-ss-SSS.json`.
+ * The function ensures the target folder exists, creates a unique filename
+ * if not provided via `data.fileData.fileName`, and writes the data as a JSON
+ * file to the specified folder. Filenames are automatically generated based on
+ * the current timestamp when a name is not explicitly given.
  *
- * If an error occurs during folder creation or file writing, an error is logged to the console and an exception is thrown.
- *
- * @param {object} data - The data object to be serialized and saved as a JSON file.
- * @param {string} folder - The directory path where the JSON file will be saved. If the folder does not exist, it will be created.
- * @returns {Promise<void>} A promise that resolves when the data has been successfully written to a file, or rejects if an error occurs.
- * @throws {Error} Throws an error if the data cannot be saved due to folder creation or file writing failures.
+ * @param {Object} data - The data object to be saved. Should include a property
+ *                        `fileData.fileName` if a specific file name is desired.
+ * @param {string} folder - The directory where the data will be saved. If the
+ *                          folder does not exist, it will be created.
+ * @returns {Promise<void>} A promise that resolves when the file is successfully
+ *                          written or rejects if an error occurs.
+ * @throws {Error} Throws an error if saving the data fails, for example,
+ *                 due to file system permissions or invalid folder paths.
  */
-const saveData = async (data: object, folder: string): Promise<void> => {
+const saveData = async (data: { [key: string]: any }, folder: string): Promise<void> => {
   try {
     await fs.mkdir(folder, {recursive: true});
 
-    // Get current timestamp and format it as DD-MM-YY_HH-mm-ss-SSS
-    const now = new Date();
-    const formattedDate = now.toLocaleDateString('en-GB').replace(/\//g, '-'); // Format as DD-MM-YY
-    const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // Format as HH-mm-ss
-    const milliseconds = now.getMilliseconds().toString().padStart(3, '0'); // Get zero-padded milliseconds
-    const timestamp = `${formattedDate}_${time}-${milliseconds}`; // Combine date, time, and milliseconds
+    const fileName = data.fileData?.fileName && typeof data.fileData.fileName === 'string' && data.fileData.fileName.trim().length > 0
+      ? data.fileData.fileName
+      : (() => {
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('en-GB').replace(/\//g, '-'); // Format as DD-MM-YY
+        const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // Format as HH-mm-ss
+        const milliseconds = now.getMilliseconds().toString().padStart(3, '0'); // Get zero-padded milliseconds
+        return `data-${formattedDate}_${time}-${milliseconds}.json`;
+      })();
 
-    const fileName = `data-${timestamp}.json`;
     const filePath = path.join(folder, fileName);
 
     await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
