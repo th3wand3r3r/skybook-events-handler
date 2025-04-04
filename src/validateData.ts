@@ -1,13 +1,9 @@
 /**
- * Validates the given data object to ensure it meets the required structure and conditions.
+ * Validates the given data object to ensure it is a non-null object.
  *
  * @param {Record<string, any>} data - The data object to validate.
- * @return {boolean} Returns true if the data contains a valid non-empty string `url`, otherwise false.
+ * @return {boolean} Returns true if the data is a non-null object, otherwise false.
  */
 export default function validateData(data: Record<string, any>): boolean {
-  if (typeof data !== 'object' || data === null) {
-    return false;
-  }
-  const { url } = data as { url: unknown };
-  return typeof url === 'string' && url.trim().length > 0;
+  return typeof data === 'object' && data !== null;
 }

@@ -16,7 +16,7 @@ import path from 'path';
  */
 const saveData = async (data: object, folder: string): Promise<void> => {
   try {
-    await fs.mkdir(folder, { recursive: true });
+    await fs.mkdir(folder, {recursive: true});
 
     // Get current timestamp and format it as DD-MM-YY_HH-mm-ss-SSS
     const now = new Date();

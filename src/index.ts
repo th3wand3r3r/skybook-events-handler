@@ -149,11 +149,11 @@ app.post(ROUTES.PROCESS, processRequest);
 const errorHandler = (error: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(`[ERROR] ${error.message}`);
   if (error.message === 'Data is not in the correct format') {
-    res.status(400).send({ error: 'Invalid input data' });
+    res.status(400).send({error: 'Invalid input data'});
   } else if (error.message === 'Failed to save data') {
-    res.status(500).send({ error: 'Failed to save the provided data' });
+    res.status(500).send({error: 'Failed to save the provided data'});
   } else {
-    res.status(500).send({ error: 'Internal Server Error' });
+    res.status(500).send({error: 'Internal Server Error'});
   }
 };
 app.use(errorHandler);
