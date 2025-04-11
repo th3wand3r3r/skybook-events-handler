@@ -5,6 +5,9 @@ RUN npm ci
 COPY --chown=node:node . .
 RUN npm run build
 
+FROM build AS test
+RUN npm run test
+
 FROM build AS prep
 RUN npm prune --production \
     && mkdir -p dest \

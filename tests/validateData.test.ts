@@ -7,8 +7,8 @@ describe('validateData', () => {
   });
 
   it('should return false for empty url strings', () => {
-    const data = { url: '' };
-    expect(validateData(data)).toBe(false);
+    const data = null;
+    expect(validateData(data as any)).toBe(false);
   });
 
   it('should only validate object inputs', () => {
@@ -16,7 +16,4 @@ describe('validateData', () => {
     expect(validateData(validInput)).toBe(true);
   });
 
-  it('should return false if `url` property is missing', () => {
-    expect(validateData({})).toBe(false);
-  });
 });

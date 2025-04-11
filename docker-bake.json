@@ -5,11 +5,7 @@
   "target": {
     "_common": {
       "context": ".",
-      "dockerfile": "app.Dockerfile",
-      "platforms": [
-        "linux/amd64",
-        "linux/arm64"
-      ]
+      "dockerfile": "app.Dockerfile"
     },
     "build-local": {
       "inherits": ["_common"],

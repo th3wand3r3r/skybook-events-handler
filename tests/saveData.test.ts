@@ -19,7 +19,7 @@ describe('saveData', () => {
 
     expect(fs.mkdir).toHaveBeenCalledWith(mockFolder, { recursive: true });
     expect(fs.writeFile).toHaveBeenCalledWith(
-      expect.stringContaining(mockFolder),
+      expect.stringContaining('mock-folder'),
       JSON.stringify(mockData, null, 2),
       'utf8'
     );
